@@ -1,0 +1,26 @@
+﻿@using Entity
+@model Ogrenci
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger" >
+        @Html.ValidationSummary()
+    </div>
+}
+@using (Html.BeginForm()) {
+    <div class="form-group">
+        @Html.LabelFor(x=>x.AdSoyad)
+        @Html.TextBoxFor(x=>x.AdSoyad)
+
+
+    </div>
+    <div>
+        @Html.LabelFor(x=>x.Egitim)
+        @Html.DropDownListFor(x=>x.EgitimId,(IEnumerable<SelectListItem>)ViewBag.secenekler)
+    </div>
+    <div>
+        @Html.LabelFor(x=>x.KayitTarihi)
+        @Html.TextBoxFor(x=>x.KayitTarihi,new {@type="date" })
+    </div>
+    <button>Kaydet</button>
+}

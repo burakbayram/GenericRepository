@@ -1,0 +1,15 @@
+﻿@using Entity
+@model Ogrenci
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(x => x.OgrenciId)//gostermeden id veriyoruz neredeyse seadece id içn kullanıyoruz
+    @Html.LabelFor(x => x.AdSoyad)
+    @Html.TextBoxFor(x => x.AdSoyad)
+
+    <button>Kaydet</button>
+
+
+}
+
+

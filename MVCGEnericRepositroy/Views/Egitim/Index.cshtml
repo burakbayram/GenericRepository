@@ -1,0 +1,56 @@
+﻿@using Entity
+@model List<Egitim>
+
+@*<a href="/Egitim/Yeni/">Yeni Egitm ekle</a>*@
+@Html.ActionLink("Yeni Egitm Ekle","Yeni")
+<ul>
+
+    @foreach (var item in Model)
+    {
+    <li>
+        @item.EgitimAdi (@item.Ogrenci.Count
+        @*<a href="/Egitim/Duzenle/@item.EgitimId">Duzenle</a>*@
+        @Html.ActionLink("Duzenle", "Duzenle", "Egitim", new { @id=item.EgitimId},new { @class="btn btn-warning"})
+
+        @*<span class="sil" egitimid="@item.EgitimId">Sil</span>*@
+        <i class="fas fa-trash sil"egitimid="@item.EgitimId"></i>
+            )
+    </li>
+    }
+</ul>
+
+<script>
+    //jgurey ecent tanımlamak ve tetiklemek benzer sekilde yazılır //bu nedenle ismsiz fonk yazarız
+    //$("button").click();
+    //sayfa yuklendginde
+    $(document).ready(function () {
+        //class sil olan elemntlere tıklandıgında
+        $(".sil").click(function () {
+            var tiklanan = $(this);
+            ///burajdakş thiss o dandaki fonk ısaret ediyrok
+            //class thisin deb nfarjklı 
+            var silid = tiklanan.attr("egitimid");
+            if (confirm("silmek istediginizden emin misiniz?")) {
+            $.ajax({
+                //tamamnen istekk atmak içiçn 
+                url: "/Egitim/Sil/" + silid,
+                //istek basarılı olursa 
+                success: function () {
+                    alert("Silindi");
+                    //sweet alert guzlmesaj veriyor
+                    tiklanan.parent().hide("slow");
+                    //hız secennekleri var fast ,normal
+                    //kaybetme secenkleri: hide |slideup|fadeout
+                },
+                error: function () {
+                    alert("Bir hata Olustu");
+                }
+                ///parametreleri suslu ıle alıyruz
+                })
+            }
+
+        })
+    });
+
+</script>
+

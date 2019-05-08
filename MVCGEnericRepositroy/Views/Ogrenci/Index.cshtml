@@ -1,0 +1,72 @@
+﻿@using Entity
+@model List<Ogrenci>
+
+
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th>Ad Soyad</th>
+            <th>Egitim</th>
+            <th>Kayıt Tarihi</th>
+            <th>islem</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {//virtıual alanları forech içinde kullanırken performans kaybı olur bunu cozmemiz lazım
+        <tr>
+            <td>@item.AdSoyad</td>
+            <td>@item.Egitim.EgitimAdi</td>
+            <td>@item.KayitTarihi.ToShortDateString()</td>
+            <td>
+                <span class="sil" onclick="ogrsil" ogrenciid="@item.OgrenciId">Sil</span>
+                @Html.ActionLink("Duzenle", "Duzenle", "Ogrenci", new { @id = item.OgrenciId }, new { @class = "btn btn-warning" })
+            </td>
+        </tr>
+        }
+    </tbody>
+
+</table>
+<script>
+    //jgurey ecent tanımlamak ve tetiklemek benzer sekilde yazılır //bu nedenle ismsiz fonk yazarız
+    //$("button").click();
+    //sayfa yuklendginde
+    //sayfa hazır olldugunda
+    $(document).ready(function () {
+        //class sil olan elemntlere tıklandıgında
+        $(".sil").click(function () {
+            var tiklanan = $(this);
+            ///burajdakş thiss o dandaki fonk ısaret ediyrok
+            //class thisin deb nfarjklı
+            var silid = tiklanan.attr("ogrenciid");
+            if (confirm("silmek istediginizden emin misiniz?")) {
+                $.ajax({
+                    //tamamnen istekk atmak içiçn
+                    url: "/Ogrenci/Sil/" + silid,
+                    //istek basarılı olursa
+                    success: function () {
+                        alert("Silindi");
+                        //sweet alert guzlmesaj veriyor
+                        tiklanan.parent().parent().hide("slow");
+                        //hız secennekleri var fast ,normal
+                        //kaybetme secenkleri: hide |slideup|fadeout
+                    },
+                    error: function () {
+                        alert("Bir hata Olustu");
+                    }
+                    ///parametreleri suslu ıle alıyruz
+                })
+            }
+
+        })
+    });
+    //function ogrsil(ogrid) {
+    //    if (confirm("silmek istedgin eminsiniz")) {
+    //        //sayafayı tamam en degistir
+    //        //ajax taa mamaen dondurmez
+    //        window.location("/Ogrenci/Sil")
+    //    }
+    //}
+
+</script>

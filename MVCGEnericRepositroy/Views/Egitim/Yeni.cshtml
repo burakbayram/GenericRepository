@@ -1,0 +1,11 @@
+﻿@using Entity
+@model Egitim
+
+@using (Html.BeginForm())
+{
+
+    @Html.LabelFor(x=>x.EgitimAdi,new {@class="control-label"})
+    @Html.TextBoxFor(x=>x.EgitimAdi,new { @class = "form-control" })
+    <button>Kaydet</button>
+
+}

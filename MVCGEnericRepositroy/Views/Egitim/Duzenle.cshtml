@@ -1,0 +1,13 @@
+﻿
+@using Entity
+@model Egitim
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(x=>x.EgitimId)//gostermeden id veriyoruz neredeyse seadece id içn kullanıyoruz
+    @Html.LabelFor(x => x.EgitimAdi)
+    @Html.TextBoxFor(x=>x.EgitimAdi)
+        <button>Kaydet</button>
+
+
+}
